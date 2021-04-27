@@ -22,6 +22,7 @@ int main(int argc, char* argv[])
     
     int input;
     bool open = true;
+    string fileName;
 
     while(open == true)
     {
@@ -31,28 +32,34 @@ int main(int argc, char* argv[])
         switch (input)
         {
             case 1:
-            {
+            { //Initalize
 
             }
             case 2:
-            {
-
+            { //Add a File
+                cout << "Enter the name of a file to add" << endl;
+                cin >> fileName;
+                addFile(fileName);
             }
             case 3:
-            {
-
+            { //Remove a File
+                cout << "Enter the name of a file to Remove" << endl;
+                cin >> fileName;
+                removeFile(fileName);
             }
             case 4:
-            {
+            { //Commit files
 
             }
             case 5:
-            {
-
+            { //Checkout
+              //Traverse across the DLL to look at previous versions
+              cout << "You will loose your local changes if they have not been commited" << endl;
+              
             }
             case 6:
-            {
-                
+            { //Quit
+                open = false;
             }
 
 
