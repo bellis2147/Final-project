@@ -18,7 +18,7 @@ void displayMenu()
 
 int main(int argc, char* argv[])
 {
-    miniGit* MG;
+    miniGit MG;
     
     int input;
     bool open = true;
@@ -34,35 +34,41 @@ int main(int argc, char* argv[])
         {
             case 1:
             { //Initalize
-
+                MG.initialize();
+                break;
             }
             case 2:
             { //Add a File
                 cout << "Enter the name of a file to add" << endl;
                 cin >> fileName;
                 addFile(fileName);
+                break;
             }
             case 3:
             { //Remove a File
                 cout << "Enter the name of a file to Remove" << endl;
                 cin >> fileName;
                 removeFile(fileName, commitNum);
+                break;
             }
             case 4:
             { //Commit files
-
+                
+                break;
             }
             case 5:
             { //Checkout
-              //Traverse across the DLL to look at previous versions
-              cout << "You will lose your local changes if they have not been commited" << endl;
-              cout << "Enter the commit number you'd like to look at" << endl;
-              cin >> commitNum;
-              checkout(commitNum);
+                //Traverse across the DLL to look at previous versions
+                cout << "You will lose your local changes if they have not been commited" << endl;
+                cout << "Enter the commit number you'd like to look at" << endl;
+                cin >> commitNum;
+                checkout(commitNum);
+                break;
             }
             case 6:
             { //Quit
                 open = false;
+                break;
             }
 
 
