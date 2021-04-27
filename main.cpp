@@ -23,6 +23,7 @@ int main(int argc, char* argv[])
     int input;
     bool open = true;
     string fileName;
+    int commitNum;
 
     while(open == true)
     {
@@ -55,7 +56,9 @@ int main(int argc, char* argv[])
             { //Checkout
               //Traverse across the DLL to look at previous versions
               cout << "You will loose your local changes if they have not been commited" << endl;
-              
+              cout << "Enter the commit number you'd like to look at" << endl;
+              cin >> commitNum;
+              checkout(commitNum);
             }
             case 6:
             { //Quit
