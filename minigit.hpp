@@ -24,8 +24,14 @@ class miniGit
     doublyNode* head;
 
     public:
-
-    void addCommit(int comNum, doublyNode* prev);
+      minigit();
+      ~minigit();
+      
+      void initialize();
+      void addFile(string fileName);
+      void removeFile(string fileName);
+      void addCommit(int comNum, doublyNode* prev);
+      void checkout(int commitNum);
 
 
 
