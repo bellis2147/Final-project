@@ -9,9 +9,10 @@ namespace fs = std::filesystem;
 
 void initialize(){
 //Delete and then reinitalize the repository (folder)
-fs::remove_all(".minigit"); // removes a directory and its contents
-fs::create_directory(".minigit");  // create a new directory
-
+    fs::remove_all(".minigit"); // removes a directory and its contents
+    cout << "Deleting .minigit directory..." << endl;
+    fs::create_directory(".minigit");  // create a new directory
+    cout << "Creating new .minigit directory..." << endl;
 }
 
 void miniGit::addFile(string fileName){
