@@ -12,7 +12,7 @@ struct singlyNode
 struct doublyNode
 {
     int commitNumber;
-    singlyNode* head;
+    singlyNode* shead;
     doublyNode* next;
     doublyNode* previous;
 }
@@ -21,7 +21,7 @@ class miniGit
 {
     private:
 
-    doublyNode* head;
+    doublyNode* dhead;
 
     public:
       minigit();

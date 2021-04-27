@@ -1,7 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <filesystem>
-#include "final.hpp"
+#include "minigit.hpp"
 using namespace std;
 
 void displayMenu()
@@ -38,6 +38,7 @@ int main(int argc, char* argv[])
             }
             case 2:
             { //Add a File
+
                 cout << "Enter the name of a file to add" << endl;
                 cin >> fileName;
                 addFile(fileName);
