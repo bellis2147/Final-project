@@ -4,11 +4,14 @@
 #include "minigit.hpp"
 
 using namespace std;
+namespace fs = std::filesystem;
 
 
 void initialize(){
 //Delete and then reinitalize the repository (folder)
-  
+fs::remove_all(".minigit"); // removes a directory and its contents
+fs::create_directory(".minigit");  // create a new directory
+
 }
 
 void addFile(string fileName){
