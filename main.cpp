@@ -23,7 +23,7 @@ int main(int argc, char* argv[])
     int input;
     bool open = true;
     string fileName;
-    commitNum
+    int commitNum;
 
     while(open == true)
     {
@@ -46,7 +46,7 @@ int main(int argc, char* argv[])
             { //Remove a File
                 cout << "Enter the name of a file to Remove" << endl;
                 cin >> fileName;
-                removeFile(fileName);
+                removeFile(fileName, commitNum);
             }
             case 4:
             { //Commit files
