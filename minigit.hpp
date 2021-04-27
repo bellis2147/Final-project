@@ -21,6 +21,7 @@ class miniGit
 {
     private:
 
+
     doublyNode* dhead;
 
     public:
@@ -29,7 +30,7 @@ class miniGit
       
       void initialize();
       void addFile(string fileName);
-      void removeFile(string fileName);
+      void removeFile(string fileName, int commitNum);
       void addCommit(int comNum, doublyNode* prev);
       void checkout(int commitNum);
 
