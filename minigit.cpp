@@ -6,13 +6,8 @@
 using namespace std;
 namespace fs = std::filesystem;
 
-miniGit::minigit() {
 
-}
-miniGit::~minigit() {
-
-}
-void miniGit::initialize(){
+void initialize(){
 //Delete and then reinitalize the repository (folder)
 fs::remove_all(".minigit"); // removes a directory and its contents
 fs::create_directory(".minigit");  // create a new directory
@@ -63,8 +58,70 @@ void miniGit::addFile(string fileName){
   
 }
 
-void miniGit::removeFile(string fileName){
-//Remove a file from the current commit
+
+void miniGit::removeFile(string fileName, int commitNum){
+
+    //Check if system has been initialized
+    if(dhead == NULL)
+    {
+        cout << "You must initialize first";
+    }
+    
+    //Finds current commit
+    else
+    {
+        doublyNode * dll = dhead;
+        for(int i = 0; i < commitNum; i++)
+        {
+            dll = dll->next;
+        }
+
+        //Checks if files exist in current commit
+        if(dll->shead->next == NULL)
+        {
+            cout << "No files in current commit" << endl;
+        }
+        else
+        {
+            //begin process of finding and deleting the file
+            singlyNode* curr = dll->shead;
+            singlyNode* prev = NULL;
+
+            while(curr!=NULL)
+            {
+                if(curr->fileName == fileName)
+                {
+                    //deletes file and keeps LL integrity
+                    prev->next = curr->next;
+                    curr = nullptr;
+                    delete curr;
+                    break;
+                    cout << fileName << " has been successfully deleted from current commit" << endl;
+                }
+                else
+                {
+                    //Moves to next file in list
+                    prev = curr;
+                    curr= curr->next;
+                    
+                    //checks if the list has already been traversed
+                    if(curr==NULL)
+                    {
+                        cout << "The file name given does not exist in the current commit." << endl;
+                    }
+
+                }
+            }
+
+
+        }
+
+
+
+    }
+
+
+
 
 //Check the SLL to see if the file already exists, if so delete the SLL node
   
