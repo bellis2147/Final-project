@@ -6,46 +6,18 @@
 using namespace std;
 namespace fs = std::filesystem;
 
+const string filePath = "C:/Users/benfr/source/repos/bellis2147/Final-project/.vs/.minigit/";
+
  
 miniGit::miniGit() {
 //Delete and then reinitalize the repository (folder)
-    //fs::remove_all(".minigit"); // removes a directory and its contents
-    //cout << "Deleting .minigit directory..." << endl;
-    //fs::create_directory(".minigit");  // create a new directory
-    //cout << "Creating new .minigit directory..." << endl;
-    //Create the head of DLL
+    fs::remove_all(".minigit"); // removes a directory and its contents
+    cout << "Deleting .minigit directory..." << endl;
+    fs::create_directory(".minigit");  // create a new directory
+    cout << "Creating new .minigit directory..." << endl;
+    
     
 }
-
-miniGit::~miniGit()
-{
-  fs::remove_all(".minigit");  
-
-  doublyNode* dcurr = dhead;
-  singlyNode* scurr = dhead->shead;
-  while(dcurr!=NULL)
-  {
-      while(scurr!=NULL)
-      {
-          singlyNode* snext = scurr->next;
-          scurr = nullptr;
-          delete scurr;
-          scurr = snext;
-      }
-      doublyNode* dnext = dcurr->next;
-      dcurr = nullptr;
-      delete dcurr;
-      dcurr = dnext;
-  }
-  dhead->shead = nullptr;
-  delete dhead->shead;
-  dhead = nullptr;
-  delete dhead;
-}
-
-
-
-
 void miniGit::initialize(){
     doublyNode* head = new doublyNode;
     head->commitNumber = 0;
@@ -55,21 +27,20 @@ void miniGit::initialize(){
 
     singlyNode* shead = new singlyNode;
     shead->fileName = "";
-    shead->fileVersion = "";
+    shead->fileVersion = 0;
     shead->next = NULL;
     dhead->shead = shead;
 
     
 }
 
-void miniGit::addFile(string fileName){
+void miniGit::addFile(string fileName, int commitNum){
 //Add a file to the current commit
     //FileName entered in main and passed into the function
     bool found = false;
     bool validFile = false;
     singlyNode * node = new singlyNode;
 
-    string filePath = "C:/Users/benfr/source/repos/bellis2147/Final-project/.vs/.minigit/";
     //Check if file exists in current directory, if not keep prompting untill a valid file is entered
     while (validFile != true) {
         
@@ -89,7 +60,7 @@ void miniGit::addFile(string fileName){
     //Adding to the head if it is empty
     if (dhead->shead->fileName == "") {
         node->fileName = fileName;
-        node->fileVersion = "00";
+        node->fileVersion = 0;
         node->next = NULL;
         dhead->shead = node;
         goto BEAM;
@@ -125,11 +96,11 @@ void miniGit::addFile(string fileName){
     //Creating the new SLL node
     singlyNode *s = new singlyNode;
     s->fileName = fileName;
-    s->fileVersion = "00";
+    s->fileVersion = commitNum;
     s->next = NULL;
     node->next = s;
     
-    cout << "Adding to SLL: " << fileName + "00" << endl;
+    
     //Naming of the file should be Name_00.txt 00 is the version number (from DLL)
    
     
@@ -236,7 +207,7 @@ void miniGit::removeFile(string fileName, int commitNum) {
 
 }
 
-void miniGit::addCommit(int comNum, doublyNode* prev){
+void miniGit::addCommit(int comNum){
 //Traverse the entire SLL and for each node do the following
     //If the file is not already in the repository: copy the file to the repository, name should contain the fileVersion member
     //If the file is in the directory: Compare the file to the previous version, 
@@ -246,12 +217,28 @@ void miniGit::addCommit(int comNum, doublyNode* prev){
 //After all files have been scanned
     //Create a new DLL node for the next version
     doublyNode* next = new doublyNode;
-    next->previous = prev;
-    next->next = NULL;
+    doublyNode* prev = new doublyNode;
+    doublyNode* n = new doublyNode;
+    next = dhead;
+    while (next != NULL) {
+        prev = next;
+        next = next->next;
+    }
+    n->previous = prev;
+    n->next = NULL;
     //Copy the previous version of SLL to the new DLL node
+    singlyNode* sNew = new singlyNode;
+    singlyNode* sOld = new singlyNode;
+    sOld = prev->shead;
+    n->shead = sNew;
+    while (sOld->next != NULL) {
+        sNew = sOld;
+        sOld = sOld->next;
+        sNew = sNew->next;
+    }
     //Change the commit number of DLL to that of previous node + 1
-    next->commitNumber = next->previous->commitNumber + 1;
-  
+    n->commitNumber = prev->commitNumber + 1;
+    next = n;
 }
 
 void miniGit::checkout(int commitNum){
