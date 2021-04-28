@@ -5,7 +5,7 @@ using namespace std;
 struct singlyNode
 {
     string fileName;
-    string fileVersion;
+    int fileVersion;
     singlyNode* next;
 }
 
@@ -29,9 +29,9 @@ class miniGit
       ~minigit();
       
       void initialize();
-      void addFile(string fileName);
+      void addFile(string fileName, int commitNum);
       void removeFile(string fileName, int commitNum);
-      void addCommit(int comNum, doublyNode* prev);
+      void addCommit(int comNum);
       void checkout(int commitNum);
 
 
