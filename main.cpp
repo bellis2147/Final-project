@@ -23,7 +23,7 @@ int main(int argc, char* argv[])
     int input;
     bool open = true;
     string fileName;
-    int commitNum;
+    int commitNum = 0;
 
     while(open == true)
     {
@@ -41,7 +41,7 @@ int main(int argc, char* argv[])
             { //Add a File
                 cout << "Enter the name of a file to add" << endl;
                 cin >> fileName;
-                addFile(fileName);
+                addFile(fileName, commitNum);
                 break;
             }
             case 3:
@@ -53,7 +53,8 @@ int main(int argc, char* argv[])
             }
             case 4:
             { //Commit files
-                
+                MG.addCommit(commitNum);
+                commitNum++;
                 break;
             }
             case 5:
@@ -62,7 +63,7 @@ int main(int argc, char* argv[])
                 cout << "You will lose your local changes if they have not been commited" << endl;
                 cout << "Enter the commit number you'd like to look at" << endl;
                 cin >> commitNum;
-                checkout(commitNum);
+                MG.checkout(commitNum);
                 break;
             }
             case 6:
@@ -70,14 +71,8 @@ int main(int argc, char* argv[])
                 open = false;
                 break;
             }
-
-
         }
-
-
     }    
-        
-
-    
+return 0;
 }
 
