@@ -104,7 +104,7 @@ void miniGit::removeFile(string fileName, int commitNum){
         }
 
         //Checks if files exist in current commit
-        if(dll->shead->next == NULL)
+        if(dll->shead == NULL)
         {
             cout << "No files in current commit" << endl;
         }
@@ -114,34 +114,54 @@ void miniGit::removeFile(string fileName, int commitNum){
             singlyNode* curr = dll->shead;
             singlyNode* prev = NULL;
 
-            while(curr!=NULL)
+            if(dll->shead->fileName == fileName)
             {
-                if(curr->fileName == fileName)
+                curr->next == dll->shead;
+                curr= nullptr
+                delete curr;
+                cout << fileName << " has been successfully deleted from current commit" << endl;
+            }
+            else
+            {
+                while(curr!=NULL)
                 {
-                    //deletes file and keeps LL integrity
-                    prev->next = curr->next;
-                    curr = nullptr;
-                    delete curr;
-                    break;
-                    cout << fileName << " has been successfully deleted from current commit" << endl;
-                }
-                else
-                {
-                    //Moves to next file in list
-                    prev = curr;
-                    curr= curr->next;
-                    
-                    //checks if the list has already been traversed
-                    if(curr==NULL)
-                    {
-                        cout << "The file name given does not exist in the current commit." << endl;
-                    }
 
+                    if(curr->fileName == fileName)
+                    {
+                        //deletes file and keeps LL integrity
+                        prev->next = curr->next;
+                        curr = nullptr;
+                        delete curr;
+                        cout << fileName << " has been successfully deleted from current commit" << endl;
+                        break;
+                    }
+                    else
+                    {
+                        //Moves to next file in list
+                        prev = curr;
+                        curr= curr->next;
+                        
+                        //checks if the list has already been traversed
+                        if(curr==NULL)
+                        {
+                            cout << "The file name given does not exist in the current commit." << endl;
+                        }
+
+                    }
                 }
+
+
+            }
+            singlyNode* print = dll->shead;
+            cout << "Current commit file list" << endl;
+            while(print!=NULL)
+            {
+                cout << print->fileName >> "->" << endl;
+                print = print->next;
             }
 
-
         }
+
 
 
 
