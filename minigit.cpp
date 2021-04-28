@@ -6,13 +6,23 @@
 using namespace std;
 namespace fs = std::filesystem;
 
-
-void initialize(){
-//Delete and then reinitalize the repository (folder)
+miniGit::miniGit(){
     fs::remove_all(".minigit"); // removes a directory and its contents
     cout << "Deleting .minigit directory..." << endl;
     fs::create_directory(".minigit");  // create a new directory
     cout << "Creating new .minigit directory..." << endl;
+    //Create the head of DLL
+    doublyNode* head = new doublyNode;
+    head->commitNumber = 0;
+    head->next = 0;
+    head->previous = 0;
+    dhead = head;
+
+}
+    
+void initialize(){
+//Delete and then reinitalize the repository (folder)
+    
 }
 
 void miniGit::addFile(string fileName){
@@ -20,14 +30,15 @@ void miniGit::addFile(string fileName){
     //FileName entered in main and passed into the function
     bool found = false;
     bool validFile = false;
-    singlyNode node;
-    string filePath = ".minigit/";
+    singlyNode * node = new singlyNode;
+    string filePath = "C:/Users/benfr/source/repos/bellis2147/Final-project/.vs/.minigit/";
     //Check if file exists in current directory, if not keep prompting untill a valid file is entered
     while (validFile != true) {
-        filePath.append(fileName);
-        cout << "C://" << filePath << endl;
-        if (fs::exists(filePath)) {
+        
+        cout << filePath + fileName << endl;
+        if (fs::exists(filePath + fileName)) {
             validFile = true;
+            cout << "File exists..." << endl;
         }
         else {
             cout << "File does not exist in directory, enter a different file" << endl;
@@ -37,15 +48,17 @@ void miniGit::addFile(string fileName){
 
     validFile = false;
     //Check SLL to see if the file has already been added
-      while (validFile != true) {
+    
+    while (validFile != true) {
+
         node = dhead->shead;
         while (found != true) {
-            if (node.fileName == fileName) {
+            if (node->fileName == fileName) {
                 found = true;
                 validFile = true;
                 break;
             }
-            node = node.next;
+            node = node->next;
         }
         if (found == false) {
             cout << "File already in commit, please enter a valid file" << endl;
@@ -53,11 +66,24 @@ void miniGit::addFile(string fileName){
         }
     }
 
-  
+    
     //Add a new SLL node containing: Name of input file, name of repository file, pointer to the next node
+    doublyNode * dnode = new doublyNode;
+    int commit = dhead->commitNumber;
+    for (int i = 0; i < dhead->commitNumber; i++) {
+        dnode = dnode->next;
+    }
+    node = dhead->shead;
+    while (node != NULL) {
+        node = node->next;
+    }
+    //Creating the new SLL node
+    node->fileName = fileName + "00";
+    node->fileVersion = commit;
     //Naming of the file should be Name_00.txt 00 is the version number (from DLL)
   
 }
+
 
 
 void miniGit::removeFile(string fileName, int commitNum){
