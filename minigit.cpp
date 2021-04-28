@@ -16,6 +16,36 @@ miniGit::miniGit() {
     //Create the head of DLL
     
 }
+
+miniGit::~miniGit()
+{
+  fs::remove_all(".minigit");  
+
+  doublyNode* dcurr = dhead;
+  singlyNode* scurr = dhead->shead;
+  while(dcurr!=NULL)
+  {
+      while(scurr!=NULL)
+      {
+          singlyNode* snext = scurr->next;
+          scurr = nullptr;
+          delete scurr;
+          scurr = snext;
+      }
+      doublyNode* dnext = dcurr->next;
+      dcurr = nullptr;
+      delete dcurr;
+      dcurr = dnext;
+  }
+  dhead->shead = nullptr;
+  delete dhead->shead;
+  dhead = nullptr;
+  delete dhead;
+}
+
+
+
+
 void miniGit::initialize(){
     doublyNode* head = new doublyNode;
     head->commitNumber = 0;
